@@ -11,6 +11,9 @@ import {skipWhile} from "rxjs/operators"
 import {ref,onUnmounted} from "vue"
 
 onUnmounted(()=>{
+  subs.value.forEach((item)=>{
+    item.unsubscribe();
+  })
   
 })
 //subject
