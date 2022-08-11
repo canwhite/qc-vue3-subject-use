@@ -2,13 +2,19 @@
   <HelloWorld  :appSubject="appSubject" :rappSubject="rappSubject"/>
   <p><button @click="sendData">父传子</button> </p>
   <p>接收子类传过来的值:{{test}}</p>
+
+  <!-- 鼠标中轴带来的刷新 -->
+  <XScroll />
 </template>
 
 <script  setup>
 import HelloWorld from './components/HelloWorld.vue'
+import XScroll from "./components/x-scroll.vue"
 import {BehaviorSubject} from "rxjs"
 import {skipWhile} from "rxjs/operators"
-import {ref,onUnmounted} from "vue"
+// eslint-disable-next-line no-unused-vars
+import {ref,onUnmounted,getCurrentInstance} from "vue"
+const { proxy } = getCurrentInstance();//关键代码
 
 onUnmounted(()=>{
   subs.value.forEach((item)=>{
@@ -27,6 +33,12 @@ function  sendData() {
     msg:"hello world"
   })
 }
+
+proxy.$eventBus.subscribe((res)=>{
+  console.log("--res--",res);
+})
+
+proxy.$eventBus.next("123");
 
 //接收子类传过来的值
 const sub = rappSubject.value.pipe(skipWhile(val=>val===null)).subscribe(res=>{

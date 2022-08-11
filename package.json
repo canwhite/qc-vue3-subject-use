@@ -8,6 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@better-scroll/core": "^2.4.2",
+    "@better-scroll/mouse-wheel": "^2.4.2",
+    "@better-scroll/pull-down": "^2.4.2",
     "core-js": "^3.8.3",
     "rxjs": "^7.5.5",
     "vue": "^3.2.13"
